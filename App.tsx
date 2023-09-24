@@ -1,29 +1,15 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-
-function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>HOME</Text>
-    </View>
-  );
-}
-function FavScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>FAV</Text>
-    </View>
-  );
-}
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import HomeScreen from "./screens/HomeScreen";
+import FavoritesScreen from "./screens/favorites/FavoritesScreen";
 
 type RootTabScreens = {
-  Home: undefined;
-  Favorites: undefined;
+  HomeTab: undefined;
+  FavoritesTab: undefined;
 };
 const Tabs = createBottomTabNavigator<RootTabScreens>();
 
@@ -34,9 +20,10 @@ export default function App() {
         <StatusBar style="auto" />
         <Tabs.Navigator>
           <Tabs.Screen
-            name="Home"
+            name="HomeTab"
             component={HomeScreen}
             options={{
+              headerShown: false,
               tabBarIcon: (props) => (
                 <MaterialIcons
                   name="home"
@@ -47,9 +34,10 @@ export default function App() {
             }}
           />
           <Tabs.Screen
-            name="Favorites"
-            component={FavScreen}
+            name="FavoritesTab"
+            component={FavoritesScreen}
             options={{
+              title: "Favorites",
               tabBarIcon: (props) => (
                 <MaterialIcons
                   name="favorite-outline"
@@ -64,12 +52,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
